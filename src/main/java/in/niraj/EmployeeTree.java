@@ -6,6 +6,7 @@ public class EmployeeTree {
     private String id;
     private String commonName;
     private String firstName;
+    private String designation;
     private List<EmployeeTree> children;
 
     public String getId() {
@@ -38,6 +39,14 @@ public class EmployeeTree {
 
     public void setChildren(List<EmployeeTree> children) {
         this.children = children;
+    }
+
+    public String getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
     }
 
     @Override

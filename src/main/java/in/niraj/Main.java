@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,15 +27,14 @@ public class Main {
     //GatherEntity - Employee
     private static List<EmployeeTree> getRecursiveEmployeeFromParent(Collection<Employee> sourceEmployeeList, List<EmployeeTree> employeeTreeListParent) {
 
-        if (sourceEmployeeList != null && sourceEmployeeList.size() > 0) {
-            for (Iterator<Employee> iterator = sourceEmployeeList.iterator(); iterator.hasNext(); ) {
-                Employee employee = iterator.next();
+        if (sourceEmployeeList != null && !sourceEmployeeList.isEmpty()) {
+            for (Employee employee : sourceEmployeeList) {
                 EmployeeTree employeeTree = getEmployeeTreeFromEntity(employee);
                 Collection<Employee> childEmployeeList = getEmployeeListByChildId(employee.getId());
 
                 List<EmployeeTree> childEmployeeTreeList = new ArrayList<>();
 
-                if (null != childEmployeeList && childEmployeeList.size() > 0) {
+                if (null != childEmployeeList && !childEmployeeList.isEmpty()) {
                     childEmployeeTreeList = childEmployeeList.stream().map(Main::getEmployeeTreeFromEntity).collect(Collectors.toList());
                 }
 
@@ -54,10 +52,11 @@ public class Main {
         employeeTree.setId(employee.getId());
         employeeTree.setCommonName(employee.getCommonName());
         employeeTree.setFirstName(employee.getFirstName());
+        employeeTree.setDesignation(employee.getDesignation());
         List<Employee> employeeListByChildId = getEmployeeListByChildId(employeeTree.getId());
         List<EmployeeTree> childEmployeeTreeList = new ArrayList<>();
 
-        if (null != employeeListByChildId && employeeListByChildId.size() > 0) {
+        if (null != employeeListByChildId && !employeeListByChildId.isEmpty()) {
             childEmployeeTreeList = employeeListByChildId.stream().map(Main::getEmployeeTreeFromEntity).collect(Collectors.toList());
         }
 
